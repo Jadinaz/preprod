@@ -1,0 +1,45 @@
+
+NGIN SERVER LOAD BALANCING
+
+(((((((((((((((events{
+ worker_connections 1024;
+}
+http {
+keepalive_timeout 5;
+upstream tomcatServers {
+        keepalive 50;
+        server 13.234.119.37:8080 weight=3;
+        server 3.109.207.243:9844;
+}
+server {
+listen 80;
+location / {
+        proxy_set_header X-Real_IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_Forwarded_for;
+
+        proxy_set_header X-Forwarded-proto $scheme;
+        proxy_set_header Host $host;
+        proxy_pass http://tomcatServers;
+}
+}
+}
+))))))))))))))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
